@@ -15,6 +15,7 @@ import java.util.List;
  *
  * Rename Class to a relevant name Add add relevant facade methods
  */
+
 public class PersonFacade {
 
     private static PersonFacade instance;
@@ -59,16 +60,16 @@ public class PersonFacade {
     }
     
 
-    public long getRenameMeCount(){
+    public long getPersonCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM RenameMe r").getSingleResult();
-            return renameMeCount;
-        }finally{  
+            long personCount = (long)em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
+            return personCount;
+        }finally{
             em.close();
         }
     }
-    
+
     public List<PersonDTO> getAll(){
         EntityManager em = emf.createEntityManager();
         TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p", Person.class);
