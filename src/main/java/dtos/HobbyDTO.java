@@ -1,7 +1,6 @@
 package dtos;
 
 import entities.Hobby;
-import entities.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,20 @@ public class HobbyDTO {
         this.name = name;
         this.description = description;
     }
+
+//    public List<HobbyDTO> Hobbies(List<Hobby> hobbyList){
+//
+//        List<HobbyDTO> hobbyDTOList = null;
+//
+//        for (Hobby hobby: hobbyList) {
+//
+//            hobbyDTOList.add(new HobbyDTO(hobby.getName(),hobby.getDescription()));
+//
+//        }
+//
+//        return hobbyDTOList;
+//
+//    }
 
     public HobbyDTO(String name, String description) {
         this.name = name;

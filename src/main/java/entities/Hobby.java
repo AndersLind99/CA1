@@ -2,7 +2,8 @@ package entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -14,6 +15,12 @@ public class Hobby implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
+//    @ManyToMany
+//    @JoinColumn(name = "hobbyList")
+//    private List<Person> persons;
+
     public Hobby() {
     }
 
@@ -23,23 +30,13 @@ public class Hobby implements Serializable {
     private String name;
     private String description;
 
-    public Hobby(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
+    @ManyToMany
+    private List<Person> persons;
 
     public Hobby(String name, String description) {
         this.name = name;
         this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.persons = new ArrayList<>();
     }
 
     public String getName() {
@@ -56,5 +53,21 @@ public class Hobby implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> personList) {
+        this.persons = personList;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -1,7 +1,8 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 
 
@@ -23,8 +24,10 @@ public class Person implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
-    @ManyToMany
-    private Set<Hobby> hobbyset;
+
+    @ManyToMany(mappedBy = "persons", cascade = CascadeType.PERSIST)
+    List<Hobby> hobbies;
+
 
 
     public Person(Long id, String email, String firstName, String lastName) {
@@ -34,19 +37,25 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-    public Person(String email, String firstName, String lastName, Set<Hobby> hobbyset) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.hobbyset = hobbyset;
-    }
 
     public Person(String email, String firstName, String lastName) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.hobbies = new ArrayList<>();
     }
 
+
+    public void addHobby(Hobby hobby) {
+
+        if (hobby != null) {
+            this.hobbies.add(hobby);
+            hobby.getPersons().add(this);
+
+        }
+
+
+    }
 
 
     public Long getId() {
@@ -80,6 +89,7 @@ public class Person implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 
     @Override
     public String toString() {

@@ -1,7 +1,9 @@
 package facades;
 
+import dtos.HobbyDTO;
 import dtos.PersonDTO;
 import dtos.RenameMeDTO;
+import entities.Hobby;
 import entities.Person;
 import entities.RenameMe;
 import utils.EMF_Creator;
@@ -12,7 +14,6 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- *
  * Rename Class to a relevant name Add add relevant facade methods
  */
 
@@ -22,11 +23,11 @@ public class PersonFacade {
     private static EntityManagerFactory emf;
 
     //Private Constructor to ensure Singleton
-    private PersonFacade() {}
-    
-    
+    private PersonFacade() {
+    }
+
+
     /**
-     * 
      * @param _emf
      * @return an instance of this facade class.
      */
@@ -41,9 +42,9 @@ public class PersonFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
-    public PersonDTO create(PersonDTO pn){
-        Person person = new Person(pn.getEmail(), pn.getFirstName(),pn.getLastName());
+
+    public PersonDTO create(PersonDTO pn) {
+        Person person = new Person(pn.getEmail(), pn.getFirstName(), pn.getLastName());
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -54,12 +55,13 @@ public class PersonFacade {
         }
         return new PersonDTO(person);
     }
-    public PersonDTO getById(long id){
+
+    public PersonDTO getById(long id) {
         EntityManager em = emf.createEntityManager();
         return new PersonDTO(em.find(Person.class, id));
     }
 
-    public PersonDTO update (PersonDTO pn){
+    public PersonDTO update(PersonDTO pn) {
         Person p = new Person(pn.getId(), pn.getEmail(), pn.getFirstName(), pn.getLastName());
         EntityManager em = emf.createEntityManager();
         try {
@@ -73,29 +75,47 @@ public class PersonFacade {
 
     }
 
+    public PersonDTO updateHobbies(Person p) {
+
+        // TODO: Add / update hobbies with personDTO input
+
+        System.out.println(p.getId());
 
 
-    public long getPersonCount(){
         EntityManager em = emf.createEntityManager();
-        try{
-            long personCount = (long)em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
+        try {
+            em.getTransaction().begin();
+            p = em.merge(p);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new PersonDTO(p);
+
+    }
+
+
+    public long getPersonCount() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            long personCount = (long) em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
             return personCount;
-        }finally{
+        } finally {
             em.close();
         }
     }
 
-    public List<PersonDTO> getAll(){
+    public List<PersonDTO> getAll() {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p", Person.class);
         List<Person> rms = query.getResultList();
         return PersonDTO.getDtos(rms);
     }
-    
+
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         PersonFacade fe = getFacadeExample(emf);
-        fe.getAll().forEach(dto->System.out.println(dto));
+        fe.getAll().forEach(dto -> System.out.println(dto));
     }
 
 }
