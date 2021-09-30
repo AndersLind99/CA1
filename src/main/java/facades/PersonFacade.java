@@ -58,7 +58,22 @@ public class PersonFacade {
         EntityManager em = emf.createEntityManager();
         return new PersonDTO(em.find(Person.class, id));
     }
-    
+
+    public PersonDTO update (PersonDTO pn){
+        Person p = new Person(pn.getId(), pn.getEmail(), pn.getFirstName(), pn.getLastName());
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            pn = em.merge(pn);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new PersonDTO(p);
+
+    }
+
+
 
     public long getPersonCount(){
         EntityManager em = emf.createEntityManager();

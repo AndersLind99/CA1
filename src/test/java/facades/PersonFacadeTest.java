@@ -68,6 +68,16 @@ class PersonFacadeTest {
     }
 
     @Test
+    void update() {
+        PersonDTO personDTO = new PersonDTO("anders","tobi","kano");
+
+        assertEquals(personDTO.toString(),facade.update(new PersonDTO("anders","tobi","kano")));
+
+
+
+    }
+
+    @Test
     void getAll() {
     }
 }
