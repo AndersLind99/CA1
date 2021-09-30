@@ -1,11 +1,8 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import java.util.Set;
+import javax.persistence.*;
 
 
 @Entity
@@ -26,6 +23,9 @@ public class Person implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
+    @ManyToMany
+    private Set<Hobby> hobbyset;
+
 
     public Person(Long id, String email, String firstName, String lastName) {
         this.id = id;
@@ -34,11 +34,20 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
+    public Person(String email, String firstName, String lastName, Set<Hobby> hobbyset) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hobbyset = hobbyset;
+    }
+
     public Person(String email, String firstName, String lastName) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+
 
     public Long getId() {
         return id;
