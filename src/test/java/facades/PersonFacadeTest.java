@@ -69,10 +69,14 @@ class PersonFacadeTest {
 
     @Test
     void update() {
-        PersonDTO personDTO = new PersonDTO("anders","tobi","kano");
 
-        assertEquals(personDTO.toString(),facade.update(new PersonDTO("anders","tobi","kano")));
+        Person person = new Person("anders", "tobi", "kano");
+        PersonDTO personDTO = facade.create(new PersonDTO(person));
 
+        Person person1 = new Person(personDTO.getId(), "test", "tobi", "kano");
+
+
+        assertEquals(person1.getEmail(), facade.update(new PersonDTO(person1)).getEmail());
 
 
     }

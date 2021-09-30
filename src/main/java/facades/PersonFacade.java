@@ -64,7 +64,7 @@ public class PersonFacade {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            pn = em.merge(pn);
+            p = em.merge(p);
             em.getTransaction().commit();
         } finally {
             em.close();
