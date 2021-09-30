@@ -29,7 +29,7 @@ public class Populator {
         hf.create(new HobbyDTO(h1));
 
         PersonFacade pf = PersonFacade.getFacadeExample(emf);
-        Person p1 = new Person("anders@gmail.com", "Simon", "Lukasen");
+        Person p1 = new Person("anders@gmail.com", "Simon", "Lukasen", "jagtvej", "kendt for hash", 88888888);
        // pf.create(new PersonDTO(p1));
         p1.addHobby(h1);
         pf.updateHobbies(p1);

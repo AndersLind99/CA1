@@ -5,6 +5,7 @@
  */
 package dtos;
 
+import com.mysql.cj.util.DnsSrv;
 import entities.Person;
 import entities.RenameMe;
 
@@ -20,12 +21,18 @@ public class PersonDTO {
     private String email;
     private String firstName;
     private String lastName;
+    private String adress;
+    private String cityInfo;
+    private long phone;
 
 
-    public PersonDTO(String email, String firstName, String lastName) {
+    public PersonDTO(String email, String firstName, String lastName, String adress, String cityInfo, long phone) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.adress = adress;
+        this.cityInfo = cityInfo;
+        this.phone = phone;
     }
 
     public PersonDTO(Person pn) {
@@ -34,6 +41,9 @@ public class PersonDTO {
         this.email = pn.getEmail();
         this.firstName = pn.getFirstName();
         this.lastName = pn.getLastName();
+        this.adress = pn.getAdress();
+        this.cityInfo = pn.getCityInfo();
+        this.phone = pn.getPhone();
 
     }
 
@@ -74,5 +84,29 @@ public class PersonDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress() {
+        this.adress = adress;
+    }
+
+    public String getCityInfo() {
+        return cityInfo;
+    }
+
+    public void setCityInfo() {
+        this.cityInfo = cityInfo;
+    }
+
+    public long getPhone() {
+        return phone;
+    }
+
+    public void setPhone() {
+        this.phone = phone;
     }
 }

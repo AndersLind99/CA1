@@ -15,7 +15,7 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Person() {
+    public Person(long id, String email, String firstName, String lastName, String adress, String cityInfo, long phone) {
     }
 
 
@@ -24,24 +24,33 @@ public class Person implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
+    private String adress;
+    private String cityInfo;
+    private long phone;
 
     @ManyToMany(mappedBy = "persons", cascade = CascadeType.PERSIST)
     List<Hobby> hobbies;
 
 
 
-    public Person(Long id, String email, String firstName, String lastName) {
+    public Person(Long id, String email, String firstName, String lastName, String adress, long phone) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.adress = adress;
+        this.cityInfo = cityInfo;
+        this.phone = phone;
     }
 
 
-    public Person(String email, String firstName, String lastName) {
+    public Person(String email, String firstName, String lastName, String adress, String cityInfo, long phone) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.adress = adress;
+        this.cityInfo = cityInfo;
+        this.phone = phone;
         this.hobbies = new ArrayList<>();
     }
 
@@ -90,6 +99,31 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getCityInfo() {
+        return cityInfo;
+    }
+
+    public void setCityInfo() {
+        this.cityInfo = cityInfo;
+    }
+
+    public long getPhone() {
+        return getPhone;
+    }
+
+    public void setPhone() {
+        this.phone = phone;
+    }
+
+
 
     @Override
     public String toString() {
@@ -98,6 +132,9 @@ public class Person implements Serializable {
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", adress='" + adress + '\'' +
+                ", cityInfo='" + cityInfo + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }

@@ -38,8 +38,8 @@ class PersonFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
-            em.persist(new Person("Some txt", "More text", "another text"));
-            em.persist(new Person("Some txt", "More text", "another text"));
+            em.persist(new Person("text", "another text", "another text", "another text", "another text", 88888888));
+            em.persist(new Person("text", "another text", "another text", "another text", "another text", 88888888));
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -54,7 +54,7 @@ class PersonFacadeTest {
 
     @Test
     void create() {
-        facade.create(new PersonDTO("email", "ole", "olesen"));
+        facade.create(new PersonDTO("email", "ole", "olesen", "jagtvej", "info", 88888888));
         assertEquals(3, facade.getPersonCount());
     }
 
@@ -70,10 +70,10 @@ class PersonFacadeTest {
     @Test
     void update() {
 
-        Person person = new Person("anders", "tobi", "kano");
+        Person person = new Person(0, "email", "lars","yeet", "jagtvej", "info",80808080);
         PersonDTO personDTO = facade.create(new PersonDTO(person));
 
-        Person person1 = new Person(personDTO.getId(), "test", "tobi", "kano");
+        Person person1 = new Person(personDTO.getId(),"email", "lars", "yeet", "jagtvej", "info", 88888888);
 
 
         assertEquals(person1.getEmail(), facade.update(new PersonDTO(person1)).getEmail());
