@@ -11,6 +11,7 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.WebApplicationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,26 +77,40 @@ public class PersonFacade {
 
     }
 
-    public PersonDTO updateHobbies(PersonDTO pn, List<HobbyDTO> hobbies) {
-
-        Person p = new Person(pn.getId(), pn.getEmail(), pn.getFirstName(), pn.getLastName());
-
-
-        for (int i = 0; i < hobbies.size(); i++) {
-
-            p.addHobby(new Hobby(hobbies.get(i).getName(), hobbies.get(i).getDescription()));
-
-        }
-
+    public PersonDTO updateHobbies(long id, List<HobbyDTO> hobbies) {
         EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            p = em.merge(p);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+        Person p = em.find(Person.class, id);
+
+        if (p != null) {
+
+
+            for (int i = 0; i < hobbies.size(); i++) {
+
+                Hobby h = em.find(Hobby.class, hobbies.get(i).getId());
+
+                if (h != null) {
+
+                    p.addHobby(h);
+                } else {
+                    throw new WebApplicationException("fejl Hobby not found", 400);
+
+                }
+            }
+
+            try {
+                em.getTransaction().begin();
+                p = em.merge(p);
+                em.getTransaction().commit();
+            } finally {
+                em.close();
+            }
+
+
+            return new PersonDTO(p);
+        } else {
+            throw new WebApplicationException("fejl person not found", 400);
+
         }
-        return new PersonDTO(p);
 
     }
 
