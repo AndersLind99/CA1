@@ -32,7 +32,7 @@ public class Populator {
         Person p1 = new Person("anders@gmail.com", "Simon", "Lukasen");
        // pf.create(new PersonDTO(p1));
         p1.addHobby(h1);
-        pf.updateHobbies(p1);
+      //  pf.updateHobbies(p1);
 
     }
 

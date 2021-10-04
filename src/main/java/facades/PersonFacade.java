@@ -11,6 +11,7 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,12 +76,16 @@ public class PersonFacade {
 
     }
 
-    public PersonDTO updateHobbies(Person p) {
+    public PersonDTO updateHobbies(PersonDTO pn, List<HobbyDTO> hobbies) {
 
-        // TODO: Add / update hobbies with personDTO input
+        Person p = new Person(pn.getId(), pn.getEmail(), pn.getFirstName(), pn.getLastName());
 
-        System.out.println(p.getId());
 
+        for (int i = 0; i < hobbies.size(); i++) {
+
+            p.addHobby(new Hobby(hobbies.get(i).getName(), hobbies.get(i).getDescription()));
+
+        }
 
         EntityManager em = emf.createEntityManager();
         try {

@@ -5,6 +5,7 @@
  */
 package dtos;
 
+import entities.Hobby;
 import entities.Person;
 import entities.RenameMe;
 
@@ -20,6 +21,7 @@ public class PersonDTO {
     private String email;
     private String firstName;
     private String lastName;
+    private List<HobbyDTO> hobbies;
 
 
     public PersonDTO(String email, String firstName, String lastName) {
@@ -34,6 +36,7 @@ public class PersonDTO {
         this.email = pn.getEmail();
         this.firstName = pn.getFirstName();
         this.lastName = pn.getLastName();
+        this.hobbies = getHobbyDtos(pn.getHobbies());
 
     }
 
@@ -41,6 +44,13 @@ public class PersonDTO {
         List<PersonDTO> rmdtos = new ArrayList();
         rms.forEach(pn->rmdtos.add(new PersonDTO(pn)));
         return rmdtos;
+    }
+
+    public static List<HobbyDTO> getHobbyDtos(List<Hobby> hobbyList){
+
+        List<HobbyDTO> hobbyDTOList = new ArrayList<>();
+        hobbyList.forEach(hb->hobbyDTOList.add(new HobbyDTO(hb)));
+        return hobbyDTOList;
     }
 
 
@@ -74,5 +84,13 @@ public class PersonDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<HobbyDTO> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<HobbyDTO> hobbies) {
+        this.hobbies = hobbies;
     }
 }

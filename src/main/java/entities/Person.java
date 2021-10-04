@@ -90,6 +90,13 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<Hobby> hobbies) {
+        this.hobbies = hobbies;
+    }
 
     @Override
     public String toString() {
