@@ -10,6 +10,7 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.WebApplicationException;
 import java.util.ArrayList;
@@ -61,6 +62,13 @@ public class PersonFacade {
     public PersonDTO getById(long id) {
         EntityManager em = emf.createEntityManager();
         return new PersonDTO(em.find(Person.class, id));
+    }
+
+    public List<PersonDTO> getByHobby(long id) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Person> query = em.createQuery("SELECT h, p FROM Person p JOIN Hobby h where h.id = :id", Person.class);
+        List<Person> rms = query.getResultList();
+        return PersonDTO.getDtos(rms);
     }
 
     public PersonDTO update(PersonDTO pn) {

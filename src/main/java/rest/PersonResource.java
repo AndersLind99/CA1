@@ -53,6 +53,15 @@ public class PersonResource {
     }
 
     @GET
+    @Path("getPersonByHobby/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getPersonByHobby(@PathParam("id") Long id) {
+        List<PersonDTO> rn = FACADE.getByHobby(id);
+        return Response.ok().entity(GSON.toJson(rn)).build();
+    }
+
+
+    @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") Long id) {
