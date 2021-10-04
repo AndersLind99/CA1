@@ -13,23 +13,11 @@ public class HobbyDTO {
     public HobbyDTO(Hobby hobby) {
         if(hobby.getId() != null)
             this.id = hobby.getId();
-        this.name = name;
-        this.description = description;
+        this.name = hobby.getName();
+        this.description = hobby.getDescription();
     }
 
-//    public List<HobbyDTO> Hobbies(List<Hobby> hobbyList){
-//
-//        List<HobbyDTO> hobbyDTOList = null;
-//
-//        for (Hobby hobby: hobbyList) {
-//
-//            hobbyDTOList.add(new HobbyDTO(hobby.getName(),hobby.getDescription()));
-//
-//        }
-//
-//        return hobbyDTOList;
-//
-//    }
+
 
     public HobbyDTO(String name, String description) {
         this.name = name;

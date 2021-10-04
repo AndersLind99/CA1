@@ -42,7 +42,7 @@ public class Person implements Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.hobbies = new ArrayList<>();
+        this.hobbies = getHobbies();
     }
 
 
