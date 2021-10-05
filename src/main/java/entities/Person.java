@@ -15,7 +15,7 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Person() {
+    public Person(long id, String email, String firstName, String lastName) {
     }
 
 
@@ -43,6 +43,9 @@ public class Person implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.hobbies = getHobbies();
+
+        this.hobbies = new ArrayList<>();
+
     }
 
 

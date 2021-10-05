@@ -5,7 +5,11 @@
  */
 package dtos;
 
+
 import entities.Hobby;
+
+import com.mysql.cj.util.DnsSrv;
+
 import entities.Person;
 import entities.RenameMe;
 
@@ -21,7 +25,9 @@ public class PersonDTO {
     private String email;
     private String firstName;
     private String lastName;
+
     private List<HobbyDTO> hobbies;
+
 
 
     public PersonDTO(String email, String firstName, String lastName) {
@@ -31,25 +37,29 @@ public class PersonDTO {
     }
 
     public PersonDTO(Person pn) {
-        if(pn.getId() != null)
+        if (pn.getId() != null)
             this.id = pn.getId();
         this.email = pn.getEmail();
         this.firstName = pn.getFirstName();
         this.lastName = pn.getLastName();
+
         this.hobbies = getHobbyDtos(pn.getHobbies());
+
+
+
 
     }
 
-    public static List<PersonDTO> getDtos(List<Person> rms){
+    public static List<PersonDTO> getDtos(List<Person> rms) {
         List<PersonDTO> rmdtos = new ArrayList();
-        rms.forEach(pn->rmdtos.add(new PersonDTO(pn)));
+        rms.forEach(pn -> rmdtos.add(new PersonDTO(pn)));
         return rmdtos;
     }
 
-    public static List<HobbyDTO> getHobbyDtos(List<Hobby> hobbyList){
+    public static List<HobbyDTO> getHobbyDtos(List<Hobby> hobbyList) {
 
         List<HobbyDTO> hobbyDTOList = new ArrayList<>();
-        hobbyList.forEach(hb->hobbyDTOList.add(new HobbyDTO(hb)));
+        hobbyList.forEach(hb -> hobbyDTOList.add(new HobbyDTO(hb)));
         return hobbyDTOList;
     }
 
@@ -93,4 +103,5 @@ public class PersonDTO {
     public void setHobbies(List<HobbyDTO> hobbies) {
         this.hobbies = hobbies;
     }
+
 }
