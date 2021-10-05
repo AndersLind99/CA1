@@ -8,9 +8,7 @@ package facades;
 import dtos.HobbyDTO;
 import dtos.PersonDTO;
 import dtos.RenameMeDTO;
-import entities.Hobby;
-import entities.Person;
-import entities.RenameMe;
+import entities.*;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -23,16 +21,25 @@ public class Populator {
     public static void populate() {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
 
-        HobbyFacade hf = HobbyFacade.getFacadeExample(emf);
-        Hobby h1 = new Hobby("Fodbold", "Du sparker en bold");
+//        HobbyFacade hf = HobbyFacade.getFacadeExample(emf);
+       Hobby h1 = new Hobby("Fodbold", "Du sparker en bold");
+//
+//        hf.create(new HobbyDTO(h1));
 
-        hf.create(new HobbyDTO(h1));
+        CityInfoFacade cf = CityInfoFacade.getFacadeExample(emf);
+
+        CityInfo cityInfo = new CityInfo(cf.getByZipcode(3700).getZipCode(),cf.getByZipcode(3700).getCity());
+
+        Address address = new Address("Smallesund",110,cityInfo);
 
         PersonFacade pf = PersonFacade.getFacadeExample(emf);
-        Person p1 = new Person("anders@gmail.com", "Simon", "Lukasen");
-       // pf.create(new PersonDTO(p1));
-        p1.addHobby(h1);
-      //  pf.updateHobbies(p1);
+        Person p1 = new Person("anders@gmail.com", "Simon", "Lukasen", address);
+        pf.create(new PersonDTO(p1));
+//        p1.addHobby(h1);
+//
+//       pf.updateHobbies(p1.getId());
+
+
 
     }
 

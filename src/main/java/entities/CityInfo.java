@@ -22,7 +22,7 @@ public class CityInfo implements Serializable {
 
     private String city;
 
-    @OneToMany
+    @OneToMany(mappedBy = "cityInfo")
     private List<Address> addresses;
 
     public CityInfo(long zipCode, String city) {
@@ -31,7 +31,7 @@ public class CityInfo implements Serializable {
         this.addresses = new ArrayList<>();
     }
 
-    public long getZipCode() {
+    public Long getZipCode() {
         return zipCode;
     }
 

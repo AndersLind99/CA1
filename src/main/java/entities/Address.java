@@ -15,23 +15,32 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-        private String street;
-        private long additionalInfo;
+    private String street;
+    private long additionalInfo;
 
-        public Address(){
-        }
+    public Address() {
+    }
 
-        @OneToMany
-        private List<Person> person;
+    @OneToMany(mappedBy = "address")
+    private List<Person> person;
 
-        @ManyToOne
-        private CityInfo cityInfo;
+    @ManyToOne
+    private CityInfo cityInfo;
 
-        public Address(String street, long additionalInfo) {
-            this.street = street;
-            this.additionalInfo = additionalInfo;
-            this.person = new ArrayList<>();
-        }
+
+    public Address(String street, long additionalInfo) {
+        this.street = street;
+        this.additionalInfo = additionalInfo;
+        this.cityInfo = getCityInfo();
+        this.person = new ArrayList<>();
+
+    }
+
+    public Address(String street, long additionalInfo, CityInfo cityInfo) {
+        this.street = street;
+        this.additionalInfo = additionalInfo;
+        this.cityInfo = cityInfo;
+    }
 
     public Long getId() {
         return id;
@@ -42,19 +51,26 @@ public class Address implements Serializable {
     }
 
     public String getStreet() {
-            return street;
-        }
+        return street;
+    }
 
-        public void setStreet(String street) {
-            this.street = street;
-        }
+    public void setStreet(String street) {
+        this.street = street;
+    }
 
-        public long getAdditionalInfo() {
-            return additionalInfo;
-        }
+    public long getAdditionalInfo() {
+        return additionalInfo;
+    }
 
-        public void setAdditionalInfo(long additionalInfo) {
-            this.additionalInfo = additionalInfo;
-        }
+    public void setAdditionalInfo(long additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
 
+    public CityInfo getCityInfo() {
+        return cityInfo;
+    }
+
+    public void setCityInfo(CityInfo cityInfo) {
+        this.cityInfo = cityInfo;
+    }
 }

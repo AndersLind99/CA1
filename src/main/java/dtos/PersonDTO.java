@@ -43,6 +43,7 @@ public class PersonDTO {
         this.email = pn.getEmail();
         this.firstName = pn.getFirstName();
         this.lastName = pn.getLastName();
+        this.addressDTO = new AddressDTO(pn.getAddress());
 
         this.hobbies = getHobbyDtos(pn.getHobbies());
 
@@ -60,6 +61,7 @@ public class PersonDTO {
     public static List<HobbyDTO> getHobbyDtos(List<Hobby> hobbyList) {
 
         List<HobbyDTO> hobbyDTOList = new ArrayList<>();
+        if (hobbyList != null)
         hobbyList.forEach(hb -> hobbyDTOList.add(new HobbyDTO(hb)));
         return hobbyDTOList;
     }
@@ -105,4 +107,11 @@ public class PersonDTO {
         this.hobbies = hobbies;
     }
 
+    public AddressDTO getAddressDTO() {
+        return addressDTO;
+    }
+
+    public void setAddressDTO(AddressDTO addressDTO) {
+        this.addressDTO = addressDTO;
+    }
 }

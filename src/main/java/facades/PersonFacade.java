@@ -3,6 +3,7 @@ package facades;
 import dtos.HobbyDTO;
 import dtos.PersonDTO;
 import dtos.RenameMeDTO;
+import entities.Address;
 import entities.Hobby;
 import entities.Person;
 import entities.RenameMe;
@@ -47,7 +48,7 @@ public class PersonFacade {
     }
 
     public PersonDTO create(PersonDTO pn) {
-        Person person = new Person(pn.getEmail(), pn.getFirstName(), pn.getLastName());
+        Person person = new Person(pn.getEmail(), pn.getFirstName(), pn.getLastName(), new Address(pn.getAddressDTO().getStreet(),pn.getAddressDTO().getAdditionalInfo()));
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();

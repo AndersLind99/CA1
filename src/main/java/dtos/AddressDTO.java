@@ -12,10 +12,11 @@ public class AddressDTO {
     private CityInfoDTO cityInfoDTO;
 
     public AddressDTO(Address address) {
-        if(address.getId() != null)
+        if (address.getId() != null)
             this.id = address.getId();
-        this.street = street;
-        this.additionalInfo = additionalInfo;
+        this.street = address.getStreet();
+        this.additionalInfo = address.getAdditionalInfo();
+        this.cityInfoDTO = new CityInfoDTO(address.getCityInfo());
     }
 
 
@@ -24,9 +25,11 @@ public class AddressDTO {
         this.additionalInfo = additionalInfo;
     }
 
+
+
     public static List<AddressDTO> getDtos(List<Address> rms) {
         List<AddressDTO> rmdtos = new ArrayList();
-        rms.forEach(address->rmdtos.add(new AddressDTO(address)));
+        rms.forEach(address -> rmdtos.add(new AddressDTO(address)));
         return rmdtos;
     }
 
