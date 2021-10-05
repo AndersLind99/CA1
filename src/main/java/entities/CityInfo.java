@@ -13,25 +13,22 @@ public class CityInfo implements Serializable {
     private static final long serialVersionUID = 3L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long zipCode;
 
-//    @OneToMany
-//    @JoinColumn(name = "cityInfo")
-//    private List<Person> persons;
 
     public CityInfo() {
     }
 
-    private long zipCode;
+
     private String city;
 
     @OneToMany
-    private List<Person> persons;
+    private List<Address> addresses;
 
     public CityInfo(long zipCode, String city) {
         this.zipCode = zipCode;
         this.city = city;
-        this.persons = new ArrayList<>();
+        this.addresses = new ArrayList<>();
     }
 
     public long getZipCode() {
@@ -50,12 +47,5 @@ public class CityInfo implements Serializable {
         this.city = city;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 }

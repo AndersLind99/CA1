@@ -7,6 +7,7 @@ import entities.Person;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 
 public class HobbyFacade {
 
@@ -47,6 +48,19 @@ public class HobbyFacade {
         return new HobbyDTO(hobby);
 
 
+    }
+
+    public long getHobbyCount(String name) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            long HobbyCount = (long) em.createQuery("SELECT COUNT(p) FROM Person p INNER JOIN p.hobbies h WHERE h.name = :name").setParameter("name", name).getSingleResult();
+            return HobbyCount;
+
+
+
+        } finally {
+            em.close();
+        }
     }
 
 }

@@ -24,13 +24,24 @@ public class Address implements Serializable {
         @OneToMany
         private List<Person> person;
 
+        @ManyToOne
+        private CityInfo cityInfo;
+
         public Address(String street, long additionalInfo) {
             this.street = street;
             this.additionalInfo = additionalInfo;
             this.person = new ArrayList<>();
         }
 
-        public String getStreet() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getStreet() {
             return street;
         }
 

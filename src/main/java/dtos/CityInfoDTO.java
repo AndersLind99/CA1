@@ -6,15 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CityInfoDTO {
-    private long id;
     private long zipCode;
     private String city;
 
     public CityInfoDTO(CityInfo cityInfo) {
-        if(cityInfo.getId() != null)
-            this.id = cityInfo.getId();
-        this.zipCode = zipCode;
-        this.city = city;
+        this.zipCode = cityInfo.getZipCode();
+        this.city = cityInfo.getCity();
     }
 
     public CityInfoDTO(long zipCode, String city) {
@@ -27,14 +24,6 @@ public class CityInfoDTO {
         List<CityInfoDTO> rmdtos = new ArrayList();
         rms.forEach(cityInfo->rmdtos.add(new CityInfoDTO(cityInfo)));
         return rmdtos;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public long getZipCode() {

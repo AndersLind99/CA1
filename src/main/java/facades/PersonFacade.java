@@ -67,7 +67,7 @@ public class PersonFacade {
     public List<PersonDTO> getByHobby(String name) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Person> query = em.createQuery("SELECT  p FROM Person p INNER JOIN p.hobbies h WHERE h.name = :name", Person.class);
-        query.setParameter("name",name);
+        query.setParameter("name", name);
         List<Person> rms = query.getResultList();
         return PersonDTO.getDtos(rms);
     }

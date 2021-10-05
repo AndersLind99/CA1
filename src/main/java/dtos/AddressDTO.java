@@ -9,6 +9,7 @@ public class AddressDTO {
     private long id;
     private String street;
     private long additionalInfo;
+    private CityInfoDTO cityInfoDTO;
 
     public AddressDTO(Address address) {
         if(address.getId() != null)
@@ -25,7 +26,7 @@ public class AddressDTO {
 
     public static List<AddressDTO> getDtos(List<Address> rms) {
         List<AddressDTO> rmdtos = new ArrayList();
-        rms.forEach(hobby->rmdtos.add(new AddressDTO(address)));
+        rms.forEach(address->rmdtos.add(new AddressDTO(address)));
         return rmdtos;
     }
 

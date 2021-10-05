@@ -2,20 +2,15 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
-import dtos.HobbyDTO;
 import dtos.PersonDTO;
+import facades.HobbyFacade;
 import facades.PersonFacade;
 import utils.EMF_Creator;
-import facades.FacadeExample;
 
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 //Todo Remove or change relevant parts before ACTUAL use
@@ -25,6 +20,7 @@ public class PersonResource {
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 
     private static final PersonFacade FACADE = PersonFacade.getFacadeExample(EMF);
+    private static final HobbyFacade HOBBY_FACADE = HobbyFacade.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
@@ -58,6 +54,15 @@ public class PersonResource {
     public Response getPersonByHobby(@PathParam("name") String name) {
         List<PersonDTO> rn = FACADE.getByHobby(name);
         return Response.ok().entity(GSON.toJson(rn)).build();
+    }
+
+
+    @GET
+    @Path("getpersonbyhobby/{name}/count")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getPersonByHobbyCount(@PathParam("name") String name) {
+        long count = HOBBY_FACADE.getHobbyCount(name);
+        return "{\"count\":" + count + "}";
     }
 
 
