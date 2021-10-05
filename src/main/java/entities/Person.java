@@ -43,9 +43,6 @@ public class Person implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.hobbies = getHobbies();
-
-        this.hobbies = new ArrayList<>();
-
     }
 
     public Person() {
