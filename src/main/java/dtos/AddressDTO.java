@@ -9,14 +9,14 @@ public class AddressDTO {
     private long id;
     private String street;
     private long additionalInfo;
-    private CityInfoDTO cityInfoDTO;
+    private CityInfoDTO cityInfo;
 
     public AddressDTO(Address address) {
         if (address.getId() != null)
             this.id = address.getId();
         this.street = address.getStreet();
         this.additionalInfo = address.getAdditionalInfo();
-        this.cityInfoDTO = new CityInfoDTO(address.getCityInfo());
+        this.cityInfo = new CityInfoDTO(address.getCityInfo());
     }
 
 
@@ -57,4 +57,11 @@ public class AddressDTO {
         this.additionalInfo = additionalInfo;
     }
 
+    public CityInfoDTO getCityInfoDTO() {
+        return cityInfo;
+    }
+
+    public void setCityInfoDTO(CityInfoDTO cityInfoDTO) {
+        this.cityInfo = cityInfoDTO;
+    }
 }

@@ -3,10 +3,7 @@ package facades;
 import dtos.HobbyDTO;
 import dtos.PersonDTO;
 import dtos.RenameMeDTO;
-import entities.Address;
-import entities.Hobby;
-import entities.Person;
-import entities.RenameMe;
+import entities.*;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -24,6 +21,7 @@ import java.util.List;
 public class PersonFacade {
 
     private static PersonFacade instance;
+    private static CityInfoFacade cityInfoFacade;
     private static EntityManagerFactory emf;
 
     //Private Constructor to ensure Singleton
@@ -48,7 +46,10 @@ public class PersonFacade {
     }
 
     public PersonDTO create(PersonDTO pn) {
-        Person person = new Person(pn.getEmail(), pn.getFirstName(), pn.getLastName(), new Address(pn.getAddressDTO().getStreet(),pn.getAddressDTO().getAdditionalInfo()));
+        Person person =
+                new Person(pn.getEmail(), pn.getFirstName(), pn.getLastName(),
+                new Address(pn.getAddressDTO().getStreet(), pn.getAddressDTO().getAdditionalInfo(),
+                        new CityInfo(pn.getAddressDTO().getCityInfoDTO().getZipCode(), pn.getAddressDTO().getCityInfoDTO().getCity())));
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();

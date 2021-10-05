@@ -14,6 +14,8 @@ import javax.persistence.EntityManagerFactory;
 
 import utils.EMF_Creator;
 
+import java.util.List;
+
 /**
  * @author tha
  */
@@ -21,10 +23,10 @@ public class Populator {
     public static void populate() {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
 
-//        HobbyFacade hf = HobbyFacade.getFacadeExample(emf);
+        HobbyFacade hf = HobbyFacade.getFacadeExample(emf);
        Hobby h1 = new Hobby("Fodbold", "Du sparker en bold");
-//
-//        hf.create(new HobbyDTO(h1));
+
+        hf.create(new HobbyDTO(h1));
 
         CityInfoFacade cf = CityInfoFacade.getFacadeExample(emf);
 
@@ -35,9 +37,14 @@ public class Populator {
         PersonFacade pf = PersonFacade.getFacadeExample(emf);
         Person p1 = new Person("anders@gmail.com", "Simon", "Lukasen", address);
         pf.create(new PersonDTO(p1));
+
+
+
 //        p1.addHobby(h1);
 //
-//       pf.updateHobbies(p1.getId());
+//
+//
+//       pf.updateHobbies(p1.getId(),);
 
 
 

@@ -25,7 +25,7 @@ public class PersonDTO {
     private String email;
     private String firstName;
     private String lastName;
-    private AddressDTO addressDTO;
+    private AddressDTO address;
 
     private List<HobbyDTO> hobbies;
 
@@ -43,7 +43,7 @@ public class PersonDTO {
         this.email = pn.getEmail();
         this.firstName = pn.getFirstName();
         this.lastName = pn.getLastName();
-        this.addressDTO = new AddressDTO(pn.getAddress());
+        this.address = new AddressDTO(pn.getAddress());
 
         this.hobbies = getHobbyDtos(pn.getHobbies());
 
@@ -108,10 +108,10 @@ public class PersonDTO {
     }
 
     public AddressDTO getAddressDTO() {
-        return addressDTO;
+        return address;
     }
 
     public void setAddressDTO(AddressDTO addressDTO) {
-        this.addressDTO = addressDTO;
+        this.address = addressDTO;
     }
 }
