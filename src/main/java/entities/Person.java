@@ -48,6 +48,10 @@ public class Person implements Serializable {
 
     }
 
+    public Person() {
+
+    }
+
 
     public void addHobby(Hobby hobby) {
 
