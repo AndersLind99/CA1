@@ -52,4 +52,5 @@ public class AddressDTO {
     public void setAdditionalInfo(long additionalInfo) {
         this.additionalInfo = additionalInfo;
     }
+
 }
