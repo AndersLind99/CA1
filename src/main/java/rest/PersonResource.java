@@ -75,7 +75,7 @@ public class PersonResource {
     }
 
     @POST
-    @Path("/create")
+    @Path("create")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response CreatePerson(String a){
