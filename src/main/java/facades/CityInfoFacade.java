@@ -1,8 +1,10 @@
 package facades;
 
 import dtos.CityInfoDTO;
+import dtos.PersonDTO;
 import dtos.RenameMeDTO;
 import entities.CityInfo;
+import entities.Person;
 import entities.RenameMe;
 import utils.EMF_Creator;
 
@@ -33,7 +35,14 @@ public class CityInfoFacade {
         return instance;
     }
 
+public List<PersonDTO> getPeopleByCity(long id){
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p INNER JOIN p.address a WHERE a.cityInfo.zipCode = :id",Person.class);
+        query.setParameter("id", id);
+        List<Person> people = query.getResultList();
+        return PersonDTO.getDtos(people);
 
+}
 
     public CityInfoDTO getByZipcode(long id){
         EntityManager em = emf.createEntityManager();

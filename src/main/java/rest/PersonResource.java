@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.PersonDTO;
+import facades.CityInfoFacade;
 import facades.HobbyFacade;
 import facades.PersonFacade;
 import utils.EMF_Creator;
@@ -21,6 +22,7 @@ public class PersonResource {
 
     private static final PersonFacade FACADE = PersonFacade.getFacadeExample(EMF);
     private static final HobbyFacade HOBBY_FACADE = HobbyFacade.getFacadeExample(EMF);
+    private static final CityInfoFacade CITY_INFO_FACADE = CityInfoFacade.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
@@ -83,6 +85,18 @@ public class PersonResource {
         PersonDTO personDTO = GSON.fromJson(a, PersonDTO.class);
         PersonDTO result = FACADE.create(personDTO);
         return Response.ok().entity(GSON.toJson(result)).build();
+
+
+    }
+
+
+    @GET
+    @Path("city/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response GetPersonFromCity(@PathParam("id")long id){
+
+        List<PersonDTO> personDTOS = CITY_INFO_FACADE.getPeopleByCity(id);
+        return Response.ok().entity(GSON.toJson(personDTOS)).build();
 
 
     }
