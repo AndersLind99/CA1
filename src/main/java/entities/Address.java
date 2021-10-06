@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+
 @Entity
 @NamedQuery(name = "Address.deleteAllRows", query = "DELETE from Address")
 public class Address implements Serializable {
@@ -21,7 +24,7 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
     private List<Person> person;
 
     @ManyToOne
@@ -37,6 +40,13 @@ public class Address implements Serializable {
     }
 
     public Address(String street, long additionalInfo, CityInfo cityInfo) {
+        this.street = street;
+        this.additionalInfo = additionalInfo;
+        this.cityInfo = cityInfo;
+    }
+
+    public Address(Long id, String street, long additionalInfo, CityInfo cityInfo) {
+        this.id = id;
         this.street = street;
         this.additionalInfo = additionalInfo;
         this.cityInfo = cityInfo;

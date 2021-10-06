@@ -1,9 +1,13 @@
 package entities;
 
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+
+import static javax.persistence.CascadeType.*;
 
 
 @Entity
@@ -29,10 +33,10 @@ public class Person implements Serializable {
     private String firstName;
     private String lastName;
 
-    @ManyToMany(mappedBy = "persons", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "persons", cascade = CascadeType.ALL)
     List<Hobby> hobbies;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = ALL,fetch = FetchType.EAGER)
     private Address address;
 
     public Person(Long id, String email, String firstName, String lastName) {
@@ -59,8 +63,14 @@ public class Person implements Serializable {
         this.hobbies = getHobbies();
     }
 
-
-
+    public Person(Long id, String email, String firstName, String lastName, Address address) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.hobbies = getHobbies();
+    }
 
     public void addHobby(Hobby hobby) {
 

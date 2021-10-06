@@ -32,7 +32,7 @@ public class AddressFacade {
         return emf.createEntityManager();
     }
 
-    public AddressDTO getByAddress(long id){
+    public AddressDTO getAddressById(long id){
         EntityManager em = emf.createEntityManager();
         return new AddressDTO(em.find(Address.class, id));
     }

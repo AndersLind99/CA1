@@ -22,6 +22,7 @@ public class PersonFacade {
 
     private static PersonFacade instance;
     private static CityInfoFacade cityInfoFacade;
+    private static AddressFacade addressFacade;
     private static EntityManagerFactory emf;
 
     //Private Constructor to ensure Singleton
@@ -48,17 +49,52 @@ public class PersonFacade {
     public PersonDTO create(PersonDTO pn) {
         Person person =
                 new Person(pn.getEmail(), pn.getFirstName(), pn.getLastName(),
-                new Address(pn.getAddressDTO().getStreet(), pn.getAddressDTO().getAdditionalInfo(),
-                        new CityInfo(pn.getAddressDTO().getCityInfoDTO().getZipCode(), pn.getAddressDTO().getCityInfoDTO().getCity())));
+                        new Address( pn.getAddressDTO().getStreet(), pn.getAddressDTO().getAdditionalInfo(),
+                                new CityInfo(pn.getAddressDTO().getCityInfoDTO().getZipCode(), pn.getAddressDTO().getCityInfoDTO().getCity())));
         EntityManager em = emf.createEntityManager();
+
+
+
+
+
         try {
             em.getTransaction().begin();
+
+
+
+
+
             em.persist(person);
+
             em.getTransaction().commit();
         } finally {
             em.close();
         }
         return new PersonDTO(person);
+    }
+
+    public void remove(long id) {
+
+        EntityManager em = emf.createEntityManager();
+        Person p = em.find(Person.class, id);
+
+        if (p != null) {
+
+            try {
+                em.getTransaction().begin();
+                em.remove(p);
+                em.getTransaction().commit();
+            } finally {
+                em.close();
+            }
+
+
+        } else {
+            throw new WebApplicationException("fejl person not found", 400);
+
+        }
+
+
     }
 
     public PersonDTO getById(long id) {
@@ -75,16 +111,27 @@ public class PersonFacade {
     }
 
     public PersonDTO update(PersonDTO pn) {
-        Person p = new Person(pn.getId(), pn.getEmail(), pn.getFirstName(), pn.getLastName());
+        Person p = new Person(pn.getId(), pn.getEmail(), pn.getFirstName(), pn.getLastName(),
+                new Address(pn.getAddressDTO().getId(), pn.getAddressDTO().getStreet(), pn.getAddressDTO().getAdditionalInfo(),
+                        new CityInfo(pn.getAddressDTO().getCityInfoDTO().getZipCode(), pn.getAddressDTO().getCityInfoDTO().getCity())));
+
         EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            p = em.merge(p);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+
+        if (em.find(Person.class, pn.getId()) != null) {
+
+            try {
+                em.getTransaction().begin();
+                em.merge(p);
+                em.getTransaction().commit();
+            } finally {
+                em.close();
+            }
+            return new PersonDTO(p);
+
+        } else {
+            throw new WebApplicationException("fejl person not found", 400);
+
         }
-        return new PersonDTO(p);
 
     }
 

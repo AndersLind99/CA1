@@ -74,6 +74,19 @@ public class PersonResource {
         return Response.ok().entity(GSON.toJson(rn)).build();
     }
 
+    @POST
+    @Path("/create")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response CreatePerson(String a){
+
+        PersonDTO personDTO = GSON.fromJson(a, PersonDTO.class);
+        PersonDTO result = FACADE.create(personDTO);
+        return Response.ok().entity(GSON.toJson(result)).build();
+
+
+    }
+
 
     @PUT
     @Path("{id}")
