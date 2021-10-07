@@ -1,11 +1,13 @@
 package entities;
 
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
+
+import static javax.persistence.CascadeType.*;
 
 
 @Entity
@@ -18,6 +20,10 @@ public class Person implements Serializable {
     private Long id;
 
     public Person() {
+
+    }
+
+    public Person(long id, String email, String firstName, String lastName) {
     }
 
 
@@ -27,6 +33,12 @@ public class Person implements Serializable {
     private String firstName;
     private String lastName;
 
+    @ManyToMany(mappedBy = "persons", cascade = CascadeType.ALL)
+    List<Hobby> hobbies;
+
+    @ManyToOne(cascade = ALL,fetch = FetchType.EAGER)
+    private Address address;
+
     public Person(Long id, String email, String firstName, String lastName) {
         this.id = id;
         this.email = email;
@@ -34,11 +46,43 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
+    public Person(String email, String firstName, String lastName, Address address) {
+
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+    }
+
+
     public Person(String email, String firstName, String lastName) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = getAddress();
+        this.hobbies = getHobbies();
     }
+
+    public Person(Long id, String email, String firstName, String lastName, Address address) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.hobbies = getHobbies();
+    }
+
+    public void addHobby(Hobby hobby) {
+
+        if (hobby != null) {
+            this.hobbies.add(hobby);
+            hobby.getPersons().add(this);
+
+        }
+
+
+    }
+
 
     public Long getId() {
         return id;
@@ -70,6 +114,22 @@ public class Person implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<Hobby> hobbies) {
+        this.hobbies = hobbies;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
