@@ -13,7 +13,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="CA1_Backend" options="-endorseddirs C:\Users\nonam\OneDrive\Skrivebord\CA1\CA1_Backend\target/endorsed" />
+      <module name="CA1_Backend" options="-endorseddirs &quot;D:\OneDrive\Dokumenter\3 semester\Projects\backend 2.0\CA1_Backend\target/endorsed&quot;" />
       <module name="devops-starter" options="-endorseddirs &quot;D:\OneDrive\Dokumenter\3 semester\Projects\fixing startcode\dat3-startcode\target/endorsed&quot;" />
     </option>
   </component>
